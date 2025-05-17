@@ -1,9 +1,9 @@
-import Note from "../models/NoteModel.js";
+import User from "../models/UserModel.js";
 
 // GET
-async function getNotes(req, res) {
+async function getUsers(req, res) {
   try {
-    const response = await Note.findAll();
+    const response = await User.findAll();
     res.status(200).json(response);
   } catch (error) {
     console.log(error.message);
@@ -11,9 +11,9 @@ async function getNotes(req, res) {
 }
 
 // GET
-async function getNoteById(req, res) {
+async function getUserById(req, res) {
   try {
-    const response = await Note.findOne({
+    const response = await User.findOne({
       where:{
         id: req.params.id
       }
@@ -25,22 +25,22 @@ async function getNoteById(req, res) {
 }
 
 // CREATE
-async function createNote(req, res) {
+async function createUser(req, res) {
   try {
     const inputResult = req.body;
-    await Note.create(inputResult);
+    await User.create(inputResult);
     res.status(201).json({ msg: "Notes Created" });
   } catch (error) {
     console.log(error.message);
   }
 }
 
-export { getNotes, createNote, getNoteById };
+export { getUsers, createUser, getUserById };
 
 
-export const updateNote = async (req, res) => {
+export const updateUser = async (req, res) => {
   try {
-    await Note.update(req.body, {
+    await User.update(req.body, {
       where: {
         id: req.params.id
       }
@@ -52,9 +52,9 @@ export const updateNote = async (req, res) => {
   }
 }
 
-export const deleteNote = async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
-    const result = await Note.destroy({
+    const result = await User.destroy({
       where: {
         id: req.params.id
       }

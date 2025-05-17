@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../utils";
 
-const EditNote = () => {
+const EditUser = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [title, setTitle] = useState("");
@@ -13,13 +13,13 @@ const EditNote = () => {
     const {id} = useParams();
 
     useEffect(()=>{
-        getNoteById();
+        getUserById();
     }, []);
 
-    const updateNote = async (e) => {
+    const updateUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${BASE_URL}/note/${id}`, {
+            await axios.put(`${BASE_URL}/user/${id}`, {
                 name,
                 email,
                 title,
@@ -32,8 +32,8 @@ const EditNote = () => {
         }
     }
 
-    const getNoteById = async () =>{
-        const response = await axios.get(`${BASE_URL}/notes/${id}`);
+    const getUserById = async () =>{
+        const response = await axios.get(`${BASE_URL}/users/${id}`);
         setName(response.data.name);
         setEmail(response.data.email);
         setTitle(response.data.title);
@@ -44,7 +44,7 @@ const EditNote = () => {
     return (
         <div className="columns mt-5 is-centered">
             <div className="column is-half">
-                <form onSubmit={updateNote}>
+                <form onSubmit={updateUser}>
                     <div className="field">
                         <label className="label">Nama</label>
                         <div className="control">
@@ -85,4 +85,4 @@ const EditNote = () => {
 
 }
 
-export default EditNote;
+export default EditUser;

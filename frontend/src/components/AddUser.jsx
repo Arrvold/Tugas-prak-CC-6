@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils";
 
-const AddNote = () => {
+const AddUser = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [title, setTitle] = useState("");
@@ -11,10 +11,10 @@ const AddNote = () => {
     const [date, setDate] = useState("");
     const navigate = useNavigate();
 
-    const saveNote = async (e) => {
+    const saveUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${BASE_URL}/add-notes`, {
+            await axios.post(`${BASE_URL}/add-users`, {
                 name,
                 email,
                 title,
@@ -30,7 +30,7 @@ const AddNote = () => {
     return (
         <div className="columns mt-5 is-centered">
             <div className="column is-half">
-                <form onSubmit={saveNote}>
+                <form onSubmit={saveUser}>
                     <div className="field">
                         <label className="label">Nama</label>
                         <div className="control">
@@ -71,4 +71,4 @@ const AddNote = () => {
 
 }
 
-export default AddNote;
+export default AddUser;

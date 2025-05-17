@@ -3,22 +3,22 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BASE_URL } from "../utils";
 
-const NoteList = () => {
-    const [notes, setNotes] = useState([]);
+const UserList = () => {
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        getNotes();
+        getUsers();
     }, []);
 
-    const getNotes = async () => {
-        const response = await axios.get(`${BASE_URL}/notes`);
-        setNotes(response.data);
+    const getUsers = async () => {
+        const response = await axios.get(`${BASE_URL}/users`);
+        setUsers(response.data);
     }
 
-    const deleteNote = async (id) => {
+    const deleteUser = async (id) => {
         try {
-            await axios.delete(`${BASE_URL}/note/${id}`)
-            getNotes();
+            await axios.delete(`${BASE_URL}/user/${id}`)
+            getUsers();
         } catch (error) {
             console.log(error)
         }
@@ -41,17 +41,17 @@ const NoteList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {notes.map((note, index)=>(
-                            <tr key={note.id}>
+                        {users.map((user, index)=>(
+                            <tr key={user.id}>
                             <td>{index + 1}</td>
-                            <td>{note.name}</td>
-                            <td>{note.email}</td>
-                            <td>{note.title}</td>
-                            <td>{note.text}</td>
-                            <td>{note.date}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>{user.title}</td>
+                            <td>{user.text}</td>
+                            <td>{user.date}</td>
                             <td>
-                                <Link to={`edit/${note.id}`} className="button is-small is-info">Edit</Link>
-                                <button onClick={()=> deleteNote(note.id)} className="button is-small is-danger">Delete</button>
+                                <Link to={`edit/${user.id}`} className="button is-small is-info">Edit</Link>
+                                <button onClick={()=> deleteUser(user.id)} className="button is-small is-danger">Delete</button>
                             </td>
                         </tr>
                         ))}
@@ -64,4 +64,4 @@ const NoteList = () => {
     )
 }
 
-export default NoteList
+export default UserList
