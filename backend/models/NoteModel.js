@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 
-// Membuat tabel "user"
+// Membuat tabel "note"
 const Note = db.define(
   "notes", // Nama Tabel
   {
