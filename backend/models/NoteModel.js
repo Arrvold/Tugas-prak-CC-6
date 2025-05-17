@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 
 // Membuat tabel "user"
-const User = db.define(
+const Note = db.define(
   "notes", // Nama Tabel
   {
     name: Sequelize.STRING,
@@ -15,4 +15,4 @@ const User = db.define(
 
 db.sync().then(() => console.log("Database synced"));
 
-export default User;
+export default Note;
