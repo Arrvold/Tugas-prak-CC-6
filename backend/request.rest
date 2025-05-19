@@ -1,40 +1,44 @@
-GET http://35.225.144.134/users
+GET http://localhost:5000/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiIxMjMiLCJpYXQiOjE3NDc1NzQ3MTQsImV4cCI6MTc0NzU3ODMxNH0.JU91dVNwKswRVuzGpIPP-t1Ee47IiB_qOd1q359nUXg
 
 ###
-POST http://localhost:5000/add-users
+
+GET https://notes-be-072-23024569990.us-central1.run.app/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImppbSIsImVtYWlsIjoiamltQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjUtMDUtMThUMTI6NTQ6NTguMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMThUMTI6NTQ6NTguMDAwWiIsImlhdCI6MTc0NzU3MjkxOSwiZXhwIjoxNzQ3NjE2MTE5fQ.PeSCtGOzUgLZo058BPUQWmvM1MYQo-odLJC2Yar_M20
+
+###
+
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "name": "Joni",
-    "email": "jo@gmail.com",
-    "title": "Cihuy",
-    "text": "Apasi jir",
-    "date": "2025-03-01"
+    "username": "123", "password": "123", "confirm_password": "123"
 }
 
 ###
-GET http://localhost:5000/users/6
+
+POST http://localhost:5000/login 
 Content-Type: application/json
 
 {
-    "name": "Joni",
-    "email": "jo@gmail.com",
-    "title": "Cihuy",
-    "text": "Apasi jir",
-    "date": "2025-03-01"
+"username": "123",
+"password": "123"
 }
 
 ###
-PUT http://localhost:5000/user/2
+
+DELETE http://localhost:5000/logout
+
+###
+
+PATCH http://localhost:5000/notes/1
 Content-Type: application/json
 
 {
-    "name": "Jonathan",
-    "email": "jonathan@gmail.com",
-    "title": "Hari pertama praktikum",
-    "text": "Hari pertama praktikum, semoga lancar",
-    "date": "2025-03-01"
+    "title": "bjir2",
+    "content": "ME"
 }
 
 ###
-DELETE http://localhost:5000/user/2
+
+DELETE http://localhost:5000/notes/1

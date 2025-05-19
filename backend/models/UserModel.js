@@ -3,13 +3,13 @@ import db from "../config/Database.js";
 
 // Membuat tabel "user"
 const User = db.define(
-  "notes", // Nama Tabel
+  "user", // Nama Tabel
   {
-    name: Sequelize.STRING,
-    email: Sequelize.STRING,
-    title: Sequelize.STRING,
-    text: Sequelize.STRING,
-    date: Sequelize.DATEONLY,
+    username: Sequelize.STRING,
+    password: Sequelize.STRING,
+    refresh_token: Sequelize.TEXT
+  }, {
+    freezeTableName: true
   }
 );
 

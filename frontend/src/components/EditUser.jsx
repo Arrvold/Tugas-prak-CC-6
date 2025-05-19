@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../utils";
+import useAuth from '../auth/useAuth';
 
 const EditUser = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const { accessToken, refreshAccessToken } = useAuth();
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const [date, setDate] = useState("");
@@ -19,33 +19,58 @@ const EditUser = () => {
     const updateUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${BASE_URL}/user/${id}`, {
-                name,
-                email,
-                title,
-                text,
-                date
-            });
-            navigate("/");
+            await axios.put(
+                `${BASE_URL}/user/${id}`,
+                { title, text, date },
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }
+            );
+            navigate("/list");
         } catch (error) {
             console.log(error);
         }
     }
 
     const getUserById = async () =>{
-        const response = await axios.get(`${BASE_URL}/users/${id}`);
-        setName(response.data.name);
-        setEmail(response.data.email);
+    try {
+        const response = await axios.get(`${BASE_URL}/users/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
         setTitle(response.data.title);
         setText(response.data.text);
         setDate(response.data.date);
+    } catch (error) {
+        if (error.response?.status === 401) {
+            try {
+                await refreshAccessToken(); // refresh token
+                // panggil ulang fungsi ini setelah refresh
+                const response = await axios.get(`${BASE_URL}/users/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+                setTitle(response.data.title);
+                setText(response.data.text);
+                setDate(response.data.date);
+            } catch (err) {
+                console.error("Gagal refresh token:", err);
+            }
+        } else {
+            console.error("Gagal mengambil data user:", error);
+        }
     }
+};
 
     return (
         <div className="columns mt-5 is-centered">
             <div className="column is-half">
                 <form onSubmit={updateUser}>
-                    <div className="field">
+                    {/* <div className="field">
                         <label className="label">Nama</label>
                         <div className="control">
                             <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder="Nama" />
@@ -56,7 +81,7 @@ const EditUser = () => {
                         <div className="control">
                             <input type="text" className="input" value={email} onChange={(e)=> setEmail(e.target.value)}placeholder="Email" />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="field">
                         <label className="label">Judul</label>
                         <div className="control">
